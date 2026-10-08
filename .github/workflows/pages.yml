@@ -1,7 +1,7 @@
 name: Deploy gym plan to GitHub Pages
 on:
   push:
-分支: [main]
+branch: [main]
   workflow_dispatch:
 permissions:
   contents: read
