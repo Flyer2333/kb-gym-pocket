@@ -23,6 +23,24 @@ function showView(next, scroll=true) {
 }
 function listBody(selector, lines, linkKey, label) {const body=$(selector);body.replaceChildren();const ol=document.createElement("ol");lines.forEach(line=>ol.append(text("li",line)));body.append(ol);if(linkKey)body.append(videoLink(linkKey,label,label));}
 
+function alternativeCard(video, mainReps, rest, sets) {
+  const alt=GYM_PLAN.alternatives[video];
+  if(!alt)return null;
+  const details=document.createElement("details");details.className="exercise-alternative";
+  const summary=document.createElement("summary");
+  summary.append(text("span","器械被占？看替代项"),text("span","＋","disclosure"));
+  summary.lastChild.setAttribute("aria-hidden","true");
+  const body=document.createElement("div");body.className="alternative-body";
+  body.append(text("h4",alt.name),text("p",`${alt.keep?sets:2}组 × ${alt.reps||mainReps}`,"alternative-volume"),text("p",`组间休息 ${rest}`,"alternative-rest"));
+  body.append(text("p",alt.cue,"alternative-cue"),text("p",alt.note,"alternative-note"));
+  const rule=alt.keep?"保留原动作组数，不额外增加。":"替代先按2组。已做的原动作组数要扣掉，不把两种动作都做满；本次替代不自动加到3组。";
+  body.append(text("p",rule,"alternative-rule"));
+  const links=document.createElement("div");links.className="alternative-links";
+  links.append(videoLink(alt.video,alt.keep?"看原动作视频":alt.time?`看替代视频 ${alt.time}`:"看替代动作视频",alt.name));
+  if(alt.extraVideo)links.append(videoLink(alt.extraVideo,alt.extraLabel,"标准俯卧撑"));
+  body.append(links);details.append(summary,body);return details;
+}
+
 function renderDay(key) {
   selectedDay=key;
   const day=GYM_PLAN.days[key], upper=day.kind==="upper";
@@ -40,7 +58,7 @@ function renderDay(key) {
     key==="sat"?"辅助引体先加大助力做2组轻热身。":"首动作做2组轻重量热身，不做累。",
     "后续复合动作开始前，另补1组轻重量热身。"
   ]:[
-    "轻松单车5分钟。",
+    "轻松单车5分钟；单车被占就换平地快走5分钟。",
     "踝前移每侧10次，徒手蹲8次，徒手髋折叠8次。",
     "首动作做2组轻重量热身；硬拉开始前另补1组轻热身。"
   ], "warmup", "热身视频");
@@ -48,17 +66,19 @@ function renderDay(key) {
     const [video,name,reps,rest,cue,time]=row;
     const card=document.createElement("article");card.className="exercise-card";
     const top=document.createElement("div");top.className="exercise-top";top.append(text("span",String(index+1).padStart(2,"0"),"exercise-index"),text("h3",name));
-    const volume=document.createElement("div");volume.className="exercise-volume";volume.append(text("strong",`${week>=3&&index===0?3:2}组 × ${reps}`));
+    const sets=week>=3&&index===0?3:2;
+    const volume=document.createElement("div");volume.className="exercise-volume";volume.append(text("strong",`${sets}组 × ${reps}`));
     const actions=document.createElement("div");actions.className="exercise-actions";actions.append(text("p",cue,"exercise-cue"),videoLink(video,time?`看视频 ${time}`:"看动作视频",name));
-    card.append(top,volume,text("p",`组间休息 ${rest}`,"exercise-rest"),actions);return card;
+    card.append(top,volume,text("p",`组间休息 ${rest}`,"exercise-rest"),actions);
+    const alternative=alternativeCard(video,reps,rest,sets);if(alternative)card.append(alternative);return card;
   });
   $("#exercise-list").replaceChildren(...cards);
   $("#cardio-time").textContent=upper?"17:10–17:26":"17:05–17:17";
   listBody("#cardio-body",upper?[
-    "17:10–17:22：单车或椭圆机12分钟，保持轻松、能交谈。",
+    "17:10–17:22：单车或椭圆机12分钟，保持轻松、能交谈；两台都忙就换平地快走12分钟。",
     "17:22–17:26：慢走4分钟，逐渐降速。"
   ]:[
-    "17:05–17:13：低阻力单车8分钟；疲劳明显时可跳过。",
+    "17:05–17:13：低阻力单车8分钟；被占就换轻松平地走8分钟，疲劳明显时可跳过。",
     "17:13–17:17：慢走4分钟。跳过单车时，慢走与拉伸顺延提前。"
   ]);
   $("#stretch-time").textContent=upper?"17:26–17:34":"17:17–17:25";

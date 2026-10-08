@@ -1,6 +1,6 @@
 "use strict";
 const PREFIX="kb-gym-pocket-";
-const CACHE=PREFIX+"20261008-v1";
+const CACHE=PREFIX+"20261008-v2-alternatives";
 const BASE=new URL("./",self.location.href);
 const ASSETS=["index.html","styles.css","plan.js","app.js","manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"].map(path=>new URL(path,BASE).href);
 self.addEventListener("install",event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));});
