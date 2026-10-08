@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111715">
+  <meta name="description" content="kb的健身计划：馆内四练，热身、动作组次、有氧与拉伸，点击查看动作视频。">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="kb的健身计划">
+  <title>kb的健身计划 · 馆内版</title>
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="manifest" href="./manifest.webmanifest" type="application/manifest+json">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./plan.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">跳到训练计划</a>
+  <header class="app-header">
+    <a class="brand" href="./"><span class="brand-badge">kb</span><span>kb的健身计划<small>馆内版</small></span></a>
+    <span class="connection" id="connection-status" role="status">训练计划</span>
+  </header>
+  <main id="main">
+    <section id="training-view" aria-labelledby="training-heading">
+      <div class="day-switch" role="tablist" aria-label="选择馆内训练日">
+        <button role="tab" id="tab-wed" aria-controls="training-content" data-day="wed" aria-selected="false">周三<span>上肢 A</span></button>
+        <button role="tab" id="tab-thu" aria-controls="training-content" data-day="thu" aria-selected="false">周四<span>下肢 A</span></button>
+        <button role="tab" id="tab-sat" aria-controls="training-content" data-day="sat" aria-selected="false">周六<span>上肢 B</span></button>
+        <button role="tab" id="tab-sun" aria-controls="training-content" data-day="sun" aria-selected="false">周日<span>下肢 B</span></button>
+      </div>
+      <div class="week-picker"><label for="training-week">入门进度</label><select id="training-week"><option value="1">第 1 周 · 学动作</option><option value="2">第 2 周 · 稳定完成</option><option value="3">第 3 周 · 按恢复进阶</option><option value="4">第 4 周 · 巩固</option></select></div>
+      <div id="training-content" role="tabpanel" aria-labelledby="tab-thu" tabindex="0">
+        <div class="session-heading"><p id="day-context" class="eyebrow"></p><h1 id="training-heading">今天练什么</h1><p id="session-time" class="session-time">16:00–18:00 · 馆内时段</p></div>
+        <p class="session-note" id="session-note"></p>
+        <nav class="stage-nav" aria-label="跳到训练步骤"><a href="#warmup">01 热身</a><a href="#strength">02 力量</a><a href="#cardio">03 有氧</a><a href="#stretch">04 拉伸</a></nav>
+        <details class="stage-block" id="warmup" open><summary><span class="step-number">01</span><span><b>热身</b><small>16:00–16:12</small></span><span class="disclosure" aria-hidden="true">＋</span></summary><div class="stage-body" id="warmup-body"></div></details>
+        <section id="strength" class="strength-section" aria-labelledby="strength-heading"><div class="section-label"><h2 id="strength-heading">02 力量训练</h2><span id="strength-time"></span></div><p class="quiet">按编号依次做。轻重量热身组不计入下方正式组。</p><div id="exercise-list" class="exercise-list"></div></section>
+        <details class="stage-block" id="cardio" open><summary><span class="step-number">03</span><span><b>练后有氧 + 降速</b><small id="cardio-time"></small></span><span class="disclosure" aria-hidden="true">＋</span></summary><div class="stage-body" id="cardio-body"></div></details>
+        <details class="stage-block" id="stretch" open><summary><span class="step-number">04</span><span><b>最后拉伸</b><small id="stretch-time"></small></span><span class="disclosure" aria-hidden="true">＋</span></summary><div class="stage-body" id="stretch-body"></div></details>
+        <div class="finish-note"><b>今天到这里就够了。</b><p>约85–95分钟练完，余下时间记录、熟悉器械和淋浴。不必练满两小时，往返步行另算。</p></div>
+      </div>
+      <noscript><p class="notice">浏览器关闭了JavaScript，无法显示动作列表。请开启JavaScript后重新打开。</p></noscript>
+    </section>
+    <section id="week-view" hidden aria-labelledby="week-heading"><p class="eyebrow">固定一周 · 入门前四周</p><h1 id="week-heading">一周安排</h1><p class="quiet">四次馆内训练；另外三晚只做轻松有氧或恢复，不是七天都练到累。</p><div class="week-list" id="week-list"></div><article class="guide-card"><h2>操场跑走进阶</h2><p>第1–2周：慢跑1分钟 + 走90秒，重复6轮。开始前快走5分钟和动态活动3分钟；结束慢走5分钟、拉伸5分钟。</p><p>第3周恢复良好时，可改为跑90秒 + 走90秒，共6轮。第4周再视恢复改为跑2分钟 + 走90秒，共6轮，结束约20:40。</p><p>跑时能说完整句子，不追1km配速。周一保持快走；周五腿酸明显也改快走。步态受影响时休息。</p></article></section>
+    <section id="guide-view" hidden aria-labelledby="guide-heading"><p class="eyebrow">第一次先看一遍</p><h1 id="guide-heading">使用与进阶</h1>
+      <article class="guide-card"><h2>放到华为手机桌面</h2><p>用华为浏览器打开本网页，点击菜单，再选“添加至桌面”。较旧系统的入口是“添加至 → 桌面”。不同版本以手机显示为准。</p><p>这是网页快捷方式，不是APK或鸿蒙原生应用。支持的浏览器可独立窗口打开；不支持也能按普通网页使用。</p><button class="button install-button" id="install-button" hidden>添加到桌面</button><a class="text-link" href="https://consumer.huawei.com/cn/support/content/zh-cn00448896/" target="_blank" rel="noopener noreferrer">华为官方操作说明</a></article>
+      <article class="guide-card"><h2>断网时怎么用</h2><p id="offline-help">首次在线打开后，支持缓存的浏览器会保存这份训练表。视频仍需要网络；没有缓存成功时，请保持联网查看。</p><p>本页没有上传记录、登录或统计功能。训练日和周数仅作为本机查看偏好保存，清理浏览器数据后会重置。</p></article>
+      <article class="guide-card"><h2>选重量：标准动作还有余力</h2><p>前两周每组结束仍能标准完成3–4次；第3–4周留2–3次。第一天从很轻的重量试8次，再小幅试重。不测试最大重量。</p><p>例如2组 × 8–12次：逐步做到12/12次。连续两次训练所有组到上限、仍有余力，再加最小一档，加重后从下限重新爬升。</p></article>
+      <article class="guide-card"><h2>第3周不是自动加量</h2><p>无关节痛、酸痛不影响日常、表现稳定时，每个馆内日只有第1个动作从2组加到3组。页面选择第3周或第4周会显示这个版本；未满足条件，继续选第2周。</p><p>第4周巩固，不继续加组。睡眠差、持续酸痛或连续两次退步：退回2组、减轻重量，操场改走或休息。</p></article>
+      <article class="guide-card"><h2>初次练不会做，就先替换</h2><p>不会起落上斜哑铃：换坐姿推胸。同组数次数。史密斯空杆太重或保护杆不会设：换高脚杯蹲，必要时先徒手蹲。</p><p>没有辅助引体机：换高位下拉2组 × 8–12次。平板支撑撑不住：改跪姿，开始塌腰就结束。硬拉先徒手学髋折叠，不追触地。</p><p>第一次蹲、硬拉和卧推，请馆内教练核对设置与动作。</p></article>
+      <article class="guide-card warning"><h2>疼痛时停止，不硬撑</h2><p>明显关节痛、跛行：停止相关动作并评估。胸痛、晕厥、异常气促：停止运动并及时就医。酸痛不代表训练更好。</p></article>
+      <article class="guide-card"><h2>视频与计划边界</h2><p>动作视频用于看示范，组数与强度按本页。部分原片线上地址未确认，已用对应动作教学补充；带时间的B站链接若未跳转，可手动拖到标注处。</p><p>本版本与2026-10-08制定的四练PDF一致。原本地视频没有音轨，参考范围是画面、字幕和动作演示，不包含无法核实的口播。</p><div class="source-links"><a class="text-link" href="https://acsm.org/resistance-training-guidelines-update-2026/" target="_blank" rel="noopener noreferrer">ACSM抗阻训练依据</a><a class="text-link" href="https://www.nhs.uk/better-health/get-active/get-running-with-couch-to-5k/couch-to-5k-running-plan/" target="_blank" rel="noopener noreferrer">NHS跑走入门依据</a></div></article>
+    </section>
+    <footer class="page-footer">入门第1–4周 · 2026-10-08<br>馆内四练计划，按恢复情况执行。</footer>
+  </main>
+  <nav class="bottom-nav" aria-label="主要页面"><button data-view="training" aria-current="page">训练</button><button data-view="week">周安排</button><button data-view="guide">使用说明</button></nav>
+</body>
+</html>
